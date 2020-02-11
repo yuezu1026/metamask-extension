@@ -52,7 +52,7 @@ export class PermissionsController {
 
   createMiddleware ({ origin, extensionId }) {
 
-    if (!origin || typeof origin !== 'string') {
+    if (typeof origin !== 'string' || !origin.length) {
       throw new Error('Must provide non-empty string origin.')
     }
 
@@ -215,7 +215,7 @@ export class PermissionsController {
   async legacyExposeAccounts (origin, accounts) {
 
     // accounts are validated by finalizePermissionsRequest
-    if (!origin || typeof origin !== 'string') {
+    if (typeof origin !== 'string' || !origin.length) {
       throw new Error('Must provide non-empty string origin.')
     }
 
@@ -413,8 +413,8 @@ export class PermissionsController {
     const permittedAccounts = await this.getAccounts(origin)
 
     if (
-      !origin || typeof origin !== 'string' ||
-      !account || typeof account !== 'string'
+      typeof origin !== 'string' || !origin.length ||
+      typeof account !== 'string' || !account.length
     ) {
       throw new Error('Should provide non-empty origin and account strings.')
     }

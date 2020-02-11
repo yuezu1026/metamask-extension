@@ -212,7 +212,7 @@ export default class PermissionsLogController {
   logAccountExposure (origin, accounts) {
 
     if (
-      !origin || typeof origin !== 'string' ||
+      typeof origin !== 'string' || !origin.length ||
       !Array.isArray(accounts) || accounts.length === 0
     ) {
       throw new Error(
