@@ -348,7 +348,6 @@ Routes.propTypes = {
   textDirection: PropTypes.string,
   network: PropTypes.string,
   provider: PropTypes.object,
-  selectedAddress: PropTypes.string,
   frequentRpcListDetail: PropTypes.array,
   sidebar: PropTypes.object,
   alertOpen: PropTypes.bool,
@@ -364,12 +363,6 @@ Routes.propTypes = {
   providerId: PropTypes.string,
   hasPermissionsRequests: PropTypes.bool,
   autoLockTimeLimit: PropTypes.number,
-  addressConnectedToCurrentTab: PropTypes.string,
-  showAccountDetail: PropTypes.func,
-}
-
-Routes.defaultProps = {
-  selectedAddress: undefined,
 }
 
 function mapStateToProps (state) {
@@ -396,7 +389,6 @@ function mapStateToProps (state) {
     submittedPendingTransactions: submittedPendingTransactionsSelector(state),
     network: state.metamask.network,
     provider: state.metamask.provider,
-    selectedAddress: state.metamask.selectedAddress,
     frequentRpcListDetail: state.metamask.frequentRpcListDetail || [],
     currentCurrency: state.metamask.currentCurrency,
     isMouseUser: state.appState.isMouseUser,
@@ -413,7 +405,6 @@ function mapDispatchToProps (dispatch) {
     setCurrentCurrencyToUSD: () => dispatch(actions.setCurrentCurrency('usd')),
     setMouseUserState: (isMouseUser) => dispatch(actions.setMouseUserState(isMouseUser)),
     setLastActiveTime: () => dispatch(actions.setLastActiveTime()),
-    showAccountDetail: (address) => dispatch(actions.showAccountDetail(address)),
   }
 }
 
