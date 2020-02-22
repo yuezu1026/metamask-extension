@@ -8,7 +8,6 @@ import {
   transactionsSelector,
 } from '../../../selectors/transactions'
 import {
-  // autoAddToBetaUI,
   getBlockGasLimit,
   getAmountConversionRate,
   getConversionRate,
