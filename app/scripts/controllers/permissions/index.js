@@ -6,7 +6,6 @@ import { CapabilitiesController as RpcCap } from 'rpc-cap'
 import { ethErrors } from 'eth-json-rpc-errors'
 import { cloneDeep } from 'lodash'
 
-import _getRestrictedMethods from './restrictedMethods'
 import createMethodMiddleware from './methodMiddleware'
 import PermissionsLogController from './permissionsLog'
 
@@ -24,10 +23,10 @@ import {
 export class PermissionsController {
 
   constructor (
-    /* istanbul ignore next */
+    /* istanbul ignore next: shows up as ignored branch */
     {
       platform, notifyDomain, notifyAllDomains,
-      getKeyringAccounts, getRestrictedMethods = _getRestrictedMethods,
+      getKeyringAccounts, getRestrictedMethods,
     } = {},
     restoredPermissions = {},
     restoredState = {}) {
@@ -238,8 +237,6 @@ export class PermissionsController {
           origin, permissions, {}, _end
         )
 
-        // don't bother sending an accountsChanged notification for legacy dapps
-
         function _end (err) {
           /* istanbul ignore if */
           if (err) {
@@ -377,7 +374,8 @@ export class PermissionsController {
 
   /**
    * Removes the given permissions for the given domain.
-   * Should only be called after confirming that the permissions exist.
+   * Should only be called after confirming that the permissions exist, to
+   * avoid sending unnecessary notifications.
    *
    * @param {Object} domains { origin: [permissions] }
    */
