@@ -11,6 +11,7 @@ import {
 import { formatDate } from '../../helpers/utils/util'
 import { approvePermissionsRequest, rejectPermissionsRequest, showModal, getCurrentWindowTab, getRequestAccountTabIds } from '../../store/actions'
 import {
+  DEFAULT_ROUTE,
   CONNECT_ROUTE,
   CONNECT_CONFIRM_PERMISSIONS_ROUTE,
 } from '../../helpers/constants/routes'
@@ -19,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   const {
     match: { params: { id: permissionsRequestId } },
     location: { pathname },
+    history,
   } = ownProps
   const permissionsRequests = getPermissionsRequests(state)
 
@@ -43,11 +45,13 @@ const mapStateToProps = (state, ownProps) => {
   const connectPath = `${CONNECT_ROUTE}/${permissionsRequestId}`
   const confirmPermissionPath = `${CONNECT_ROUTE}/${permissionsRequestId}${CONNECT_CONFIRM_PERMISSIONS_ROUTE}`
 
-  let page = null
+  let page = ''
   if (pathname === connectPath) {
     page = '1'
   } else if (pathname === confirmPermissionPath) {
     page = '2'
+  } else {
+    history.push(DEFAULT_ROUTE)
   }
 
   return {
